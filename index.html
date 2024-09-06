@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome-page</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./text-amimotion.css">
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>HardWork</h1>
+        </div>
+
+        <div class="nav">
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Product</a></li>
+                    <li><a href="#footer">Content</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="s-one">
+            <canvas id="test"></canvas>
+
+            <div class="left">
+
+                <div class="center">
+                    <h1>Welcome..</h1>
+                    <span id="element"></span>
+                    <br>
+                    <a href="#">Explore now</a>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer" id="footer">
+            <h1>Content : </h1>
+            <ul>
+                <li><i class="fa-brands fa-linkedin"></i></li>
+                <li><i class="fa-brands fa-github"></i></li>
+                <li><i class="fa-solid fa-envelope"></i></li>
+            </ul>
+            <p>&copy; 2024 Created By Dibyansu.</p>
+        </div>
+
+    </footer>
+
+
+    <!-- type js -->
+    <script>
+        var typed = new Typed('#element', {
+            strings: ['This is my Welcome page website'],
+            typeSpeed: 50,
+        });
+    </script>
+    <script>
+        var w = window.innerWidth,
+            h = window.innerHeight,
+            canvas = document.getElementById('test'),
+            ctx = canvas.getContext('2d'),
+            rate = 60,
+            arc = 100,
+            time,
+            count,
+            size = 7,
+            speed = 20,
+            parts = new Array,
+            colors = ['red', '#ff2d75', '#4fc3dc'];
+        var mouse = { x: 0, y: 0 };
+
+        canvas.setAttribute('width', w);
+        canvas.setAttribute('height', h);
+
+        function create() {
+            time = 0;
+            count = 0;
+
+            for (var i = 0; i < arc; i++) {
+                parts[i] = {
+                    x: Math.ceil(Math.random() * w),
+                    y: Math.ceil(Math.random() * h),
+                    toX: Math.random() * 5 - 1,
+                    toY: Math.random() * 2 - 1,
+                    c: colors[Math.floor(Math.random() * colors.length)],
+                    size: Math.random() * size
+                }
+            }
+        }
+
+        function particles() {
+            ctx.clearRect(0, 0, w, h);
+            canvas.addEventListener('mousemove', MouseMove, false);
+            for (var i = 0; i < arc; i++) {
+                var li = parts[i];
+                var distanceFactor = DistanceBetween(mouse, parts[i]);
+                var distanceFactor = Math.max(Math.min(15 - (distanceFactor / 10), 10), 1);
+                ctx.beginPath();
+                ctx.arc(li.x, li.y, li.size * distanceFactor, 0, Math.PI * 2, false);
+                ctx.fillStyle = li.c;
+                ctx.strokeStyle = li.c;
+                if (i % 2 == 0)
+                    ctx.stroke();
+                else
+                    ctx.fill();
+
+                li.x = li.x + li.toX * (time * 0.05);
+                li.y = li.y + li.toY * (time * 0.05);
+
+                if (li.x > w) {
+                    li.x = 0;
+                }
+                if (li.y > h) {
+                    li.y = 0;
+                }
+                if (li.x < 0) {
+                    li.x = w;
+                }
+                if (li.y < 0) {
+                    li.y = h;
+                }
+
+
+            }
+            if (time < speed) {
+                time++;
+            }
+            setTimeout(particles, 1000 / rate);
+        }
+        function MouseMove(e) {
+            mouse.x = e.layerX;
+            mouse.y = e.layerY;
+
+            //context.fillRect(e.layerX, e.layerY, 5, 5);
+            //Draw( e.layerX, e.layerY );
+        }
+        function DistanceBetween(p1, p2) {
+            var dx = p2.x - p1.x;
+            var dy = p2.y - p1.y;
+            return Math.sqrt(dx * dx + dy * dy);
+        }
+        create();
+        particles();
+    </script>
+</body>
+
+</html>
