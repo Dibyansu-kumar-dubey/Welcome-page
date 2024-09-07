@@ -27,3 +27,18 @@
       background-position: left 0px top 50%;
     }
   }
+
+
+
+  @media (max-width:600px) {
+  
+    .center{
+      top: 270px;
+    }
+
+    .center h1{
+    font-size: 70px;
+
+    }
+  
+  }
