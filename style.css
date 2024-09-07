@@ -13,13 +13,12 @@ html{
   scroll-behavior: smooth ;
 }
 
-
 /* just to be sure these are full screen*/
 
 canvas {
   position: absolute;
-  overflow: hidden;
-  /* width: 100vw; */
+  overflow-x: hidden;
+  width: 100vw;
   height: 100vh;
   background-color: #060F26;
 }
@@ -29,10 +28,10 @@ canvas {
 header {
   display: flex;
   justify-content: space-around;
-  /* background-color: #040813; */
+  flex-wrap: wrap;
   background-color: #081a4c;
   color: white;
-  height: 5vw;
+  height: 96px;
 }
 
 .logo {
@@ -94,11 +93,12 @@ nav ul {
 
 
 .footer {
+  position: absolute;
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 20px;
-  height: 18vw;
+  height: 345.6px;
   width: 100%;
   background-color: black;
   color: cornflowerblue;
@@ -107,6 +107,7 @@ nav ul {
 }
 .footer h1{
   font-size: 3.5rem;
+  margin-top: 10px;
 }
 footer ul {
   display: flex;
@@ -114,4 +115,26 @@ footer ul {
 }
 .footer ul li{
   list-style: none;
+}
+
+
+@media (max-width:600px) {
+
+  canvas{
+    overflow-x: hidden;
+    object-fit: cover;
+  }
+
+  .left a{
+  font-size: 20px;
+  }
+  .footer{
+    top: 880px;
+    align-items: center;
+
+  }
+  .footer h1{
+    margin-top: 25px;
+  }
+
 }
